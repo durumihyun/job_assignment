@@ -4,6 +4,23 @@ import { Todo } from './interfaces';
 
 import Form from './components/Form';
 import List from './components/List';
+import styled from 'styled-components';
+
+const AppContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  padding: 64px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+const AppHeader = styled.header`
+  font-size: 48px;
+  font-weight: bold;
+  color: #4D4D60;
+  text-align: center;
+  padding-bottom: 32px;
+`
 
 const App: React.FC = () => {
   const [newTodo, setNewTodo] = useState<string>('');
@@ -19,18 +36,27 @@ const App: React.FC = () => {
     setNewTodo('');
   }
 
+  function handleToggle(id: number) {
+    setTodos(todos.map(todo =>
+      todo.id === id
+        ? { ...todo, done: !todo.done }
+        : todo
+    )
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <AppContainer>
+      <AppHeader>
         React Todo
-      </header>
+      </AppHeader>
       <Form
         handleAddTodo={handleAddTodo}
         handleChange={handleChange}
         newTodo={newTodo}
       />
-      <List todos={todos} />
-    </div>
+      <List todos={todos} handleToggle={handleToggle} />
+    </AppContainer>
   );
 }
 

@@ -9,29 +9,29 @@ body {
   box-sizing: border-box;
 }
 
-.App {
+/* .App {
   width: 100vw;
   height: 100vh;
   padding: 64px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
-.App-header {
+/* .App-header {
   font-size: 48px;
   font-weight: bold;
   color: #4D4D60;
   text-align: center;
   padding-bottom: 32px;
-}
-
+} */
+/* 
 .Todo-form {
   width: 680px;
   margin-bottom: 16px;
   padding: 0 8px;
   border-bottom: 1px solid #979797;
-}
+} */
 
 input {
   border: none;
@@ -43,25 +43,25 @@ input:focus {
   outline: unset;
 }
 
-.Todo-input {
+/* .Todo-input {
   width: 100%;
   font-size: 20px;
   line-height: 1.6;
   color: #4D4D60;
-}
+} */
 
-.Todo-input::placeholder {
+/* .Todo-input::placeholder {
   color: #B5B7BF
-}
+} */
 
-.Todo-list {
+/* .Todo-list {
   width: 680px;
   height: 100%;
   margin: 0;
   padding: 0;
-}
+} */
 
-li {
+/* li {
   display: flex;
   align-items: center;
   list-style: none;
@@ -69,18 +69,19 @@ li {
   height: 40px;
   margin-bottom: 4px;
   line-height: 40px;
-}
+} */
 
-.Todo-text {
+/* .Todo-text {
   margin: 0;
   font-size: 18px;
   color: #4D4D60;
   cursor: pointer;
-}
+} */
 
 .Todo-check-icon {
   width: 16px;
   height: 16px;
+  fill: #D7D9E0;
   fill: #D7D9E0;
   margin-right: 8px;
   cursor: pointer;
