@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const PLACEHOLDER = "오늘 할일을 입력해주세요."
+const PLACEHOLDER = "오늘 할일을 입력해주세요.";
 
 const TodoForm = styled.form`
   width: 680px;
   margin-bottom: 16px;
   padding: 0 8px;
   border-bottom: 1px solid #979797;
-`
+`;
+
 const TodoInput = styled.input`
   width: 100%;
   font-size: 20px;
@@ -26,7 +27,7 @@ const TodoInput = styled.input`
   &:focus{
     outline: unset;
   }
-`
+`;
 
 function Form({ handleAddTodo, handleChange, newTodo }: {
     handleAddTodo: () => void,

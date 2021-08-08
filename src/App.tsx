@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Todo } from './interfaces';
 
 import Form from './components/Form';
 import List from './components/List';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 
 const AppContainer = styled.div`
   width: 100vw;
@@ -56,7 +55,9 @@ const App: React.FC = () => {
       setTodos(JSON.parse(savedTodos));
       return;
     }
-    setTodos([]);
+    setTodos([{ id: 1, text: 'javascript.info에서 javascript 공부', done: false },
+    { id: 2, text: 'javascript.info에서 javascript 공부', done: false },
+    { id: 3, text: 'javascript.info에서 javascript 공부', done: true }]);
   }, []);
 
   useEffect(() => {
