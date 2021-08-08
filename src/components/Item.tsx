@@ -44,9 +44,10 @@ const TodoText = styled.p<{ done: boolean }>`
   text-decoration: ${(props) => props.done ? 'line-through' : 'none'}
  `
 
-function Item({ todo, handleToggle }: {
+function Item({ todo, handleToggle, handleRemove }: {
     todo: Todo,
     handleToggle: (id: number) => void,
+    handleRemove: (id: number) => void,
 }) {
     const { id, text, done } = todo;
 
@@ -62,7 +63,7 @@ function Item({ todo, handleToggle }: {
                     {text}
                 </TodoText>
             </Wrapper>
-            <Delete className="Todo-delete-icon" />
+            <Delete className="Todo-delete-icon" onClick={() => handleRemove(id)} />
         </Container>
     );
 };

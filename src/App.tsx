@@ -45,6 +45,14 @@ const App: React.FC = () => {
     );
   }
 
+  function handleRemove(id: number) {
+    setTodos(todos.filter((todo) => {
+      if (todo.id !== id) {
+        return todo;
+      }
+    }))
+  }
+
   return (
     <AppContainer>
       <AppHeader>
@@ -55,7 +63,11 @@ const App: React.FC = () => {
         handleChange={handleChange}
         newTodo={newTodo}
       />
-      <List todos={todos} handleToggle={handleToggle} />
+      <List
+        todos={todos}
+        handleToggle={handleToggle}
+        handleRemove={handleRemove}
+      />
     </AppContainer>
   );
 }
