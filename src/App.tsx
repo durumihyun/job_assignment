@@ -5,6 +5,7 @@ import { Todo } from './interfaces';
 import Form from './components/Form';
 import List from './components/List';
 import styled from 'styled-components';
+import { useEffect } from 'react';
 
 const AppContainer = styled.div`
   width: 100vw;
@@ -13,18 +14,19 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
+
 const AppHeader = styled.header`
   font-size: 48px;
   font-weight: bold;
   color: #4D4D60;
   text-align: center;
   padding-bottom: 32px;
-`
+`;
 
 const App: React.FC = () => {
   const [newTodo, setNewTodo] = useState<string>('');
-  const [todos, setTodos] = useState<Array<Todo>>([{ id: 1, text: ' javascript.info에서 javascript 공부', done: false }])
+  const [todos, setTodos] = useState<Array<Todo>>([])
 
   function handleChange(value: string) {
     setNewTodo(value);
@@ -41,17 +43,25 @@ const App: React.FC = () => {
       todo.id === id
         ? { ...todo, done: !todo.done }
         : todo
-    )
-    );
+    ));
   }
 
   function handleRemove(id: number) {
-    setTodos(todos.filter((todo) => {
-      if (todo.id !== id) {
-        return todo;
-      }
-    }))
+    setTodos(todos.filter((todo) => todo.id !== id));
   }
+
+  useEffect(() => {
+    const savedTodos = window.localStorage.getItem('todos') || '';
+    if (savedTodos) {
+      setTodos(JSON.parse(savedTodos));
+      return;
+    }
+    setTodos([]);
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <AppContainer>
