@@ -16,7 +16,25 @@ const Container = styled.li`
   height: 40px;
   margin-bottom: 4px;
   line-height: 40px;
+  .Todo-delete-icon{
+    display: none;
+  }
+  &:hover {
+       .Todo-delete-icon{
+           display: inline-block;
+       }
+    }
 `
+
+const Wrapper = styled.div`
+    display: flex;
+    align-items: center;
+    &:hover {
+       .Todo-check-icon{
+           fill: #32E6BC;
+       }
+    }
+`;
 
 const TodoText = styled.p<{ done: boolean }>`
   margin: 0;
@@ -34,14 +52,16 @@ function Item({ todo, handleToggle }: {
 
     return (
         <Container>
-            {done
-                ? <Done className="Todo-check-icon" onClick={() => handleToggle(id)} />
-                : <Tick className="Todo-check-icon" onClick={() => handleToggle(id)} />
+            <Wrapper>
+                {done
+                    ? <Done className="Todo-check-icon" onClick={() => handleToggle(id)} />
+                    : <Tick className="Todo-check-icon" onClick={() => handleToggle(id)} />
 
-            }
-            <TodoText onClick={() => handleToggle(id)} done={done}>
-                {text}
-            </TodoText>
+                }
+                <TodoText onClick={() => handleToggle(id)} done={done}>
+                    {text}
+                </TodoText>
+            </Wrapper>
             <Delete className="Todo-delete-icon" />
         </Container>
     );
