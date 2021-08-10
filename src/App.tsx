@@ -6,6 +6,9 @@ import Form from './components/Form';
 import List from './components/List';
 import styled from 'styled-components';
 
+const moveline = document.createElement('li');
+moveline.className = 'moveline';
+
 const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -13,7 +16,7 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+  `;
 
 const AppHeader = styled.header`
   font-size: 48px;
@@ -23,9 +26,11 @@ const AppHeader = styled.header`
   padding-bottom: 32px;
 `;
 
-const App: React.FC = () => {
+function App(){
   const [newTodo, setNewTodo] = useState<string>('');
   const [todos, setTodos] = useState<Array<Todo>>([])
+  const [over, setOver] = useState<any>('')
+  const [dragged, setDragged] = useState<any>('')
 
   function handleChange(value: string) {
     setNewTodo(value);
@@ -64,6 +69,47 @@ const App: React.FC = () => {
     window.localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
+ function dragStart(e:any){
+   setDragged(e.target);
+   e.dataTransfer.effectAllowed = 'move';
+   e.dataTransfer.setData('text/html',dragged);
+ }
+
+ function dragEnd(e:any){
+    const place = document.querySelector('.moveline');
+
+  if(place){
+     dragged.parentNode.removeChild(moveline);
+   }
+
+  if(over.tagName === ("LI" || "P" )){
+   dragged.style.display='flex';
+   const data = [...todos];
+   let from = Number(dragged.dataset.id);
+   let to = Number(over.dataset.id);
+   if(from < to) to--;
+   data.splice(to, 0, data.splice(from, 1)[0]);
+   setTodos(data);
+   
+  } else{
+   dragged.style.display='flex';
+   const data = [...todos];
+   setTodos(data);
+  }
+ }
+
+ function dragOver(e:any){
+   e.preventDefault();
+   dragged.style.display= 'none';
+   setOver(e.target);
+   if(e.target.className === 'moveline') {
+     return;
+   }
+   if( e.target.tagName === ("LI"|| "P")){
+     e.target.parentNode.insertBefore(moveline, e.target);
+   } 
+ }
+
   return (
     <AppContainer>
       <AppHeader>
@@ -78,6 +124,9 @@ const App: React.FC = () => {
         todos={todos}
         handleToggle={handleToggle}
         handleRemove={handleRemove}
+        dragStart={dragStart}
+        dragEnd={dragEnd}
+        dragOver={dragOver}
       />
     </AppContainer>
   );

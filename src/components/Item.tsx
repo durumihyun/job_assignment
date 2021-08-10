@@ -24,7 +24,7 @@ const Container = styled.li`
            display: inline-block;
        }
     }
-`
+`;
 
 const Wrapper = styled.div`
     display: flex;
@@ -44,15 +44,19 @@ const TodoText = styled.p<{ done: boolean }>`
   text-decoration: ${(props) => props.done ? 'line-through' : 'none'}
  `
 
-function Item({ todo, handleToggle, handleRemove }: {
+function Item({ todo, handleToggle, handleRemove, draggable, dragStart, dragEnd,i  }: {
     todo: Todo,
     handleToggle: (id: number) => void,
     handleRemove: (id: number) => void,
+    draggable:boolean,
+    dragEnd: (e: any) => void,
+    dragStart: (e: any) => void,
+    i:Number,
 }) {
     const { id, text, done } = todo;
 
     return (
-        <Container>
+        <Container draggable={true}  onDragStart={dragStart} onDragEnd={dragEnd} data-id={i}>
             <Wrapper>
                 {done
                     ? <Done className="Todo-check-icon" onClick={() => handleToggle(id)} />
